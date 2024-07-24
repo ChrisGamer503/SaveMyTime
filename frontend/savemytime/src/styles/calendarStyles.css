@@ -1,0 +1,56 @@
+.rbc-calendar {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2%;
+    margin-right: 2%;
+    padding-bottom: 2%;
+  }
+  
+  /* Estilos de las celdas de fecha */
+  .rbc-day-bg {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .rbc-today{
+    background-color: #c3c3c3;  
+  }
+
+  /* Estilos para los eventos */
+  .rbc-event {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.9em;
+  }
+  
+  /* Estilos de los días seleccionados */
+  .rbc-selected {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* Estilos del encabezado */
+  .rbc-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Estilos del modal */
+  .modal-content {
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Botón de cierre del modal */
+  .modal-close-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    color: #007bff;
+    cursor: pointer;
+  }
