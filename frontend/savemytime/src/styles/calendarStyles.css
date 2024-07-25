@@ -11,6 +11,10 @@
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
   }
+
+  .rbc-day-bg:hover {
+    background-color: #d8d8d8;
+  }
   
   .rbc-today{
     background-color: #c3c3c3;  
@@ -31,6 +35,10 @@
     color: white;
   }
   
+  .rbc-toolbar-label{
+    text-transform: uppercase;
+  }
+
   /* Estilos del encabezado */
   .rbc-header {
     background-color: #007bff;
@@ -40,11 +48,14 @@
   
   /* Estilos del modal */
   .modal-content {
+    width: 40%;
     border-radius: 8px;
     padding: 20px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+
+  
   
   /* Botón de cierre del modal */
   .modal-close-button {
@@ -53,4 +64,5 @@
     font-size: 1.2em;
     color: #007bff;
     cursor: pointer;
+    
   }
