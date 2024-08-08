@@ -1,0 +1,17 @@
+.nav{
+    
+    width: 25%;
+    margin-top: 2%;
+    padding-bottom: 2%;
+}
+
+.hamburger{
+    top: 0;
+    left: 0;
+    margin-top: 2%;
+    display: flex;
+    position: absolute;
+    margin-left: 1rem;
+    font-size:2rem;
+    
+}

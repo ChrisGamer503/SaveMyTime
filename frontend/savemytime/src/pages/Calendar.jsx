@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Modal from '../components/Modal';
 import '../styles/stylesModal.css';
 import '../styles/calendarStyles.css';
+import Nav from '../components/Nav';
 
 
 dayjs.locale('es');
@@ -13,6 +14,7 @@ dayjs.locale('es');
 function Calendario() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [navIsOpen, setNavOpen] = useState(false)
 
   const handleDayClick = (slotInfo) => {
     const { start } = slotInfo;
@@ -33,6 +35,7 @@ function Calendario() {
 
   return (
     <div>
+      
       <div
         style={{
           width: '100%',
@@ -41,6 +44,11 @@ function Calendario() {
           justifyContent: 'flex-end',
         }}
       >
+        
+        {
+         <Nav/>
+        }
+
         <Calendar
           localizer={localizer}
           views={['month', 'week', 'agenda']}
@@ -56,8 +64,9 @@ function Calendario() {
             time: 'Hora',
             event: 'Evento',
             noEventsInRange: 'Sin eventos',
+            
           }}
-          style={{ width: '85%' }}
+          style={{ width: '100%' }}
           selectable
           onSelectSlot={handleDayClick}
           startAccessor="start"

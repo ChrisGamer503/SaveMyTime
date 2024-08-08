@@ -3,9 +3,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 2%;
     margin-right: 2%;
+    margin-left: 5%;
     padding-bottom: 2%;
   }
   
+
   /* Estilos de las celdas de fecha */
   .rbc-day-bg {
     background-color: #ffffff;
@@ -39,6 +41,10 @@
     text-transform: uppercase;
   }
 
+  .rbc-toolbar, .rbc-btn-group button{
+    font-weight: 700;;
+  }
+
   /* Estilos del encabezado */
   .rbc-header {
     background-color: #007bff;
@@ -66,3 +72,4 @@
     cursor: pointer;
     
   }
+
