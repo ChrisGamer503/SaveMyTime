@@ -7,6 +7,7 @@ import Modal from '../components/Modal';
 import '../styles/stylesModal.css';
 import '../styles/calendarStyles.css';
 import Nav from '../components/Nav';
+import { RxHamburgerMenu } from "react-icons/rx"
 
 
 dayjs.locale('es');
@@ -31,11 +32,19 @@ function Calendario() {
     setSelectedDate(null);
   };
 
+  const changeNav = () => {
+    if (navIsOpen == false) {
+      setNavOpen(true)
+    } else {
+      setNavOpen(false)
+    }
+  }
+
   const localizer = dayjsLocalizer(dayjs);
 
   return (
     <div>
-      
+      <RxHamburgerMenu className='hamburger' onClick={changeNav} />
       <div
         style={{
           width: '100%',
@@ -46,7 +55,7 @@ function Calendario() {
       >
         
         {
-         <Nav/>
+         navIsOpen && <Nav/>
         }
 
         <Calendar

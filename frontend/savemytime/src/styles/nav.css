@@ -1,17 +1,35 @@
-.nav{
-    
+/* Animación para el nav */
+@keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .nav {
+    display: flex;
     width: 25%;
     margin-top: 2%;
     padding-bottom: 2%;
-}
+    background-color: yellow;
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+
 
 .hamburger{
     top: 0;
     left: 0;
     margin-top: 2%;
     display: flex;
-    position: absolute;
+    position: fixed;
     margin-left: 1rem;
     font-size:2rem;
-    
+    cursor: pointer;
+    z-index: 1000;
 }
+

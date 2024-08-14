@@ -1,6 +1,9 @@
+
 function Index() {
     return(
-        <p>In progress (ve a /calendar)</p>
+        <>
+            <img src="../../public/indeximg.png" alt="" srcset="" width={"700px"}/>
+        </>
     )
 }
 

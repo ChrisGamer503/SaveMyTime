@@ -22,6 +22,10 @@
     background-color: #c3c3c3;  
   }
 
+  .rbc-off-range-bg{
+    background-color: rgb(245, 245, 245);
+  }
+
   /* Estilos para los eventos */
   .rbc-event {
     background-color: #007bff;
@@ -72,4 +76,5 @@
     cursor: pointer;
     
   }
+
 
