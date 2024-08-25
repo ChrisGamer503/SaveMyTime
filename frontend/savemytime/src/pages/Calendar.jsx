@@ -17,15 +17,18 @@ function Calendario() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [navIsOpen, setNavOpen] = useState(false)
 
+
   const handleDayClick = (slotInfo) => {
     const { start } = slotInfo;
     if (dayjs(start).isAfter(dayjs())) {
-      const formattedDate = dayjs(start).format('LL');
+      const formattedDate = dayjs(start).format('YYYY-MM-DD');
       setSelectedDate(formattedDate);
       setModalIsOpen(true);
       console.log(selectedDate)
     }
   };
+
+  
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -41,6 +44,8 @@ function Calendario() {
   }
 
   const localizer = dayjsLocalizer(dayjs);
+
+  
 
   return (
     <div>
@@ -60,7 +65,7 @@ function Calendario() {
 
         <Calendar
           localizer={localizer}
-          views={['month', 'week', 'agenda']}
+          views={['month', 'agenda']}
           messages={{
             next: 'Siguiente',
             previous: 'Anterior',

@@ -5,6 +5,7 @@
   border: 2px #888 solid;
   border-radius: 0.25rem;
   gap: 4%;
+
 }
 
 .form_box{
@@ -16,20 +17,57 @@
   .form_box form{
     display: flex;
     flex-direction: column;
-    
+        
+  }
+
+  .form_date {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
   }
   
-  .button_save{
-    width: 15%;
+  .form_date input[type="date"] {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 0.80rem;
+    width: 50%;
+    height: 20%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #333;
   }
+  
+  .form_box form select {
+    margin-bottom: 0.75rem;
+    width: 50%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 0.80rem;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #868686;
+
+  }
+
+  .form label{
+    font-weight: 600;
+  }
+  
+  
+.input{
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
 
   .input{
     width: 50%;
   }
 
-  input{
-    margin-bottom: 1rem;
-  }
 
   .close {
     color: #aaa;

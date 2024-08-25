@@ -6,6 +6,8 @@
     margin-left: 5%;
     padding-bottom: 2%;
   }
+
+  
   
 
   /* Estilos de las celdas de fecha */
@@ -28,21 +30,32 @@
 
   /* Estilos para los eventos */
   .rbc-event {
-    background-color: #007bff;
+    background-color: #5aa4f3;
     color: white;
     border-radius: 4px;
     padding: 4px 8px;
     font-size: 0.9em;
   }
+
+  .rbc-agenda-empty{
+
+    font-size: large;
+    font-weight: 900;
+  }
   
+  .rbc-agenda-view{
+    margin-top: 1rem;
+  }
+
   /* Estilos de los días seleccionados */
   .rbc-selected {
-    background-color: #007bff;
+    background-color: #5aa4f3;
     color: white;
   }
   
   .rbc-toolbar-label{
     text-transform: uppercase;
+    font-size: larger;
   }
 
   .rbc-toolbar, .rbc-btn-group button{
@@ -51,9 +64,13 @@
 
   /* Estilos del encabezado */
   .rbc-header {
-    background-color: #007bff;
+    background-color: #5aa4f3;
     color: white;
     font-weight: bold;
+  }
+
+  .rbc-header span{
+    text-transform: uppercase;
   }
   
   /* Estilos del modal */

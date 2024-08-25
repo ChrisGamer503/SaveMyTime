@@ -1,3 +1,9 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,19 +22,11 @@ model Usuario {
 }
 
 model Recordatorio {
-  id_recordatorio    Int      @id @default(autoincrement())
-  nombre_recordatorio String
+  id_recordatorio           Int @id @default(autoincrement())
+  nombre_recordatorio       String
   fecha_inicio              DateTime
-  fecha_final              DateTime
-  prioridad_id       Int?
-  prioridad          Prioridad?   @relation(fields: [prioridad_id], references: [id_prioridad])
-  usuario_id Int
-  usuarios           Usuario    @relation(fields: [usuario_id], references: [id_usuario])
-}
-
-model Prioridad {
-  id_prioridad    Int      @id @default(autoincrement())
-  nombre_prioridad String   @db.VarChar(45)
-  color           String
-  recordatorios    Recordatorio[]
+  fecha_final               DateTime
+  prioridad                 String       
+  usuario_id                Int
+  usuarios  Usuario  @relation(fields: [usuario_id], references: [id_usuario])
 }
