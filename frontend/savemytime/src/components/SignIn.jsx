@@ -1,52 +1,61 @@
-import React from "react";
+import axios, { AxiosError } from "axios";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useSession } from "../hooks/useSession";
+import { useState } from "react";
+
+
 function SignInForm() {
-  const [state, setState] = React.useState({
-    email: "",
-    password: ""
-  });
-  const handleChange = evt => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
-  };
+  
+  const {register, handleSubmit} = useForm()
+  const [mensaje, setMensaje] = useState("");
+  const { setToken } = useSession();
+  const navigate = useNavigate();
 
-  const handleOnSubmit = evt => {
-    evt.preventDefault();
+  const enviarLogin = async (datos) => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/usuarios/login",
+        datos
+      );
 
-    const { email, password } = state;
-    alert(`You are login with email: ${email} and password: ${password}`);
+      localStorage.setItem("token", data.token);
 
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
+      setToken(data.token);
+
+      setMensaje("Login Exitoso !");
+
+      return navigate("/calendar");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setMensaje(error.response.data.message);
+      }
     }
   };
 
+
   return (
     <div className="form-container sign-in-container">
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleSubmit(enviarLogin)}>
         <h1>Iniciar Sesion</h1>
         <input
           type="email"
-          placeholder="Email"
+          required
+          placeholder="Correo"
           name="email"
-          value={state.email}
-          onChange={handleChange}
           className="index_input"
+          {...register("correo")}
         />
         <input
           type="password"
+          required
           name="password"
-          placeholder="Password"
-          value={state.password}
-          onChange={handleChange}
+          placeholder="Contraseña"
           className="index_input"
+          {...register("contrase_a")}
         />
-        <button>Iniciar Sesion</button>
+        <button type="submit">Iniciar Sesion</button>
+        {mensaje && <p>{mensaje}</p>}
       </form>
     </div>
   );

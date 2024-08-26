@@ -36,7 +36,7 @@ const crearUsuario = async (req, res) => {
 
 const iniciarSesion = async (req, res) => {
     const usuarioEsquema = z.object({
-        correo: z.string().email(),
+        correo: z.string(),
         contrase_a: z.string()
     })
 
@@ -69,8 +69,13 @@ const iniciarSesion = async (req, res) => {
 
 }
 
+const perfil = async(req,res)=>{
+    return res.status(200).json(req.usuario);
+}
+
 
 export {
     crearUsuario,
-    iniciarSesion
+    iniciarSesion,
+    perfil
 }

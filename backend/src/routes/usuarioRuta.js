@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { crearUsuario, iniciarSesion } from "../controllers/controladorUsuario.js";
+import { verificarMiddleware } from "../middleware/autentificacionUsuario.js";
+import { crearUsuario, iniciarSesion, perfil } from "../controllers/controladorUsuario.js";
 
 const router = Router()
 
@@ -9,5 +10,7 @@ router.post("/register", crearUsuario)
 
 //Login
 router.post("/login", iniciarSesion)
+
+router.get("/perfil",verificarMiddleware , perfil)
 
 export default router

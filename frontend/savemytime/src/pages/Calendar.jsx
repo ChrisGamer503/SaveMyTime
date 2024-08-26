@@ -8,6 +8,7 @@ import '../styles/stylesModal.css';
 import '../styles/calendarStyles.css';
 import Nav from '../components/Nav';
 import { RxHamburgerMenu } from "react-icons/rx"
+import { useSession } from "../hooks/useSession.js";
 
 
 dayjs.locale('es');
@@ -16,19 +17,18 @@ function Calendario() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [navIsOpen, setNavOpen] = useState(false)
-
+  const { headers, logout } = useSession();
 
   const handleDayClick = (slotInfo) => {
     const { start } = slotInfo;
-    if (dayjs(start).isAfter(dayjs())) {
+    const today = dayjs().startOf('day');
+
+    if (dayjs(start).isSameOrAfter(today)) {
       const formattedDate = dayjs(start).format('YYYY-MM-DD');
       setSelectedDate(formattedDate);
       setModalIsOpen(true);
-      console.log(selectedDate)
     }
   };
-
-  
 
   const closeModal = () => {
     setModalIsOpen(false);

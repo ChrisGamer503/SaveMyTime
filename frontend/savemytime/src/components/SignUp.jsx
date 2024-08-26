@@ -1,64 +1,80 @@
-import React from "react";
+import { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+
+
 function SignUpForm() {
-  const [state, setState] = React.useState({
-    name: "",
-    email: "",
-    password: ""
-  });
-  const handleChange = evt => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
-  };
 
-  const handleOnSubmit = evt => {
-    evt.preventDefault();
+  const { register, handleSubmit, formState, setError } = useForm();
+  const [mensaje, setMensaje] = useState("");
+  const [popupVisible, setPopupVisible] = useState(false);
 
-    const { name, email, password } = state;
-    alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
+  const enviarDatos = async (data) => {
+    try {
+      await axios.post("http://localhost:5000/usuarios/register", data);
+      setMensaje("Cuenta Creada");
+      setPopupVisible(true); // Mostrar el popup
 
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setMensaje(error.response.data.message);
+        setError("email");
+      }
     }
   };
 
+  const cerrarPopup = () => {
+    setPopupVisible(false);
+    window.location.reload();
+  };
+
+  
   return (
     <div className="form-container sign-up-container">
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleSubmit(enviarDatos)}>
         <h1>Crear Cuenta</h1>
         <input
           type="text"
           name="name"
-          value={state.name}
-          onChange={handleChange}
-          placeholder="Name"
+          required
+          placeholder="Nombre"
           className="index_input"
+          {...register("nombre_usuario")}
         />
         <input
           type="email"
           name="email"
-          value={state.email}
-          onChange={handleChange}
-          placeholder="Email"
+          placeholder="Correo"
           className="index_input"
+          required
+          {...register("correo")}
         />
         <input
           type="password"
+          minLength={7}
           name="password"
-          value={state.password}
-          onChange={handleChange}
-          placeholder="Password"
+          required
+          placeholder="Contraseña"
           className="index_input"
+          {...register("contrase_a")}
         />
-        <button>Crear Cuenta</button>
+        <button
+        disabled={formState.isSubmitSuccessful}
+
+
+        >Crear Cuenta</button>
       </form>
+
+      {popupVisible && (
+        <div className="popup">
+          <div className="popup-inner">
+            <h2>{mensaje}</h2>
+            <button onClick={cerrarPopup}>Cerrar</button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

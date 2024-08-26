@@ -42,7 +42,7 @@ function Index() {
                       id="signUp"
                       onClick={() => handleOnClick("signUp")}
                     >
-                      Sign Up
+                      Crear Cuenta
                     </button>
                   </div>
                 </div>

@@ -1,37 +1,62 @@
 // Modal.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/stylesModal.css';
 import { useForm } from "react-hook-form"
 import dayjs from 'dayjs';
+import { useSession } from '../hooks/useSession';
+import axios from 'axios';
 
 const Modal = ({ closeModal, selectedDate, isDateSelectable }) => {
 
-  const { register, handleSubmit, formState:{ errors }, setValue  } = useForm()
+  const { register, handleSubmit, formState:{ errors }, setValue, watch  } = useForm()
+  const { headers, perfil } = useSession()
+
+  const [isEndDateDisabled, setIsEndDateDisabled] = useState(true);
+  const [showPopup, setShowPopup] = useState(false); // Estado para el popup
+
 
   //Validar que dia es hoy
   useEffect(() => {
     // Configura el valor inicial para 'start' solo si selectedDate está definido
     if (selectedDate) {
-      setValue('start', selectedDate);
+      setValue('fecha_inicio', selectedDate);
+      setIsEndDateDisabled(false); // Habilitar 'end' si hay una fecha de inicio
     }
   }, [selectedDate, setValue]);
   //fecha de hoy
   const today = dayjs().format('YYYY-MM-DD');
 
+  // Observar el valor de start
+  const startDate = watch('fecha_inicio', selectedDate || '');
 
-  const onSubmit = (data) => {
+  useEffect(() => {
+    setIsEndDateDisabled(!startDate); // Deshabilitar 'end' si 'start' no tiene valor
+  }, [startDate]);
+
+
+  const onSubmit = async(data) => {
     // Crear un objeto con los datos del formulario
     const formData = {
-      start: data.start,
-      end: data.end,
-      title: data.event,
-      priority: data.important,
+      fecha_inicio: data.fecha_inicio,
+      fecha_final: data.fecha_final,
+      nombre_recordatorio: data.nombre_recordatorio,
+      prioridad: data.prioridad,
     };
     
-    // Aquí puedes hacer lo que necesites con el objeto formData
-    console.log(formData);
-    // Cerrar el modal después de guardar
-    closeModal();
+    try {
+      await axios.post("http://localhost:5000/recordatorios", formData, { headers });
+      // Manejar el éxito
+      setShowPopup(true);
+      setMensaje("Recordatorio Creado");
+    } catch (error) {
+      setMensaje("Error al crear el recordatorio");
+      setError("event", { type: "manual", message: error.response.data.message });
+    }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    closeModal(); // Cerrar el modal cuando se cierra el popup
   };
 
   return (
@@ -48,8 +73,23 @@ const Modal = ({ closeModal, selectedDate, isDateSelectable }) => {
             <form className='form' onSubmit={handleSubmit(onSubmit)}>
               
               <div className='form_date'>
-                <p>Desde</p><input type="date" min={today} defaultValue={selectedDate || ''} disabled={!isDateSelectable} {...register('start')} />
-                <p>Hasta</p><input type="date" min={selectedDate} {...register('end', { required: 'Este campo es obligatorio' })}/>
+                <p>Desde</p>
+                <input 
+                  type="date" 
+                  min={today} 
+                  defaultValue={selectedDate || ''} 
+                  disabled={!isDateSelectable} 
+                  {...register('fecha_inicio')} 
+                />
+
+                <p>Hasta</p>
+                <input 
+                  type="date" 
+                  min={startDate} 
+                  disabled={isEndDateDisabled}
+                  {...register('fecha_final', { required: 'Este campo es obligatorio'})}
+                />
+
                 {errors.end && <p>{errors.end.message}</p>}
               </div>
 
@@ -59,11 +99,11 @@ const Modal = ({ closeModal, selectedDate, isDateSelectable }) => {
                 id='recordatorio' 
                 className='input' 
                 placeholder='Nombre del recordatorio' 
-                {...register('event', { required: 'Este campo es obligatorio' })}  
+                {...register('nombre_recordatorio', { required: 'Este campo es obligatorio' })}  
               />
               {errors.event && <p>{errors.event.message}</p>}
 
-              <select name="important" id="important" {...register('important', { required: 'Este campo es obligatorio' })}>
+              <select name="important" id="important" {...register('prioridad', { required: 'Este campo es obligatorio' })}>
                 <option value="" disabled selected>Seleccione la prioridad</option>
                 <option value="Baja" >Prioridad Baja</option>
                 <option value="Media">Prioridad Media</option>
@@ -75,6 +115,14 @@ const Modal = ({ closeModal, selectedDate, isDateSelectable }) => {
             </form>
           </div>
         </div>
+        {showPopup && (
+        <div className="popup-modal">
+          <div className="popup-content-modal">
+            <p>Recordatorio creado con éxito</p>
+            <button onClick={handlePopupClose}>Cerrar</button>
+          </div>
+        </div>
+      )}
       </div>
     )
 };
