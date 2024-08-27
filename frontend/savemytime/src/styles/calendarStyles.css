@@ -67,6 +67,7 @@
     background-color: #5aa4f3;
     color: white;
     font-weight: bold;
+    
   }
 
   .rbc-header span{
@@ -93,5 +94,43 @@
     cursor: pointer;
     
   }
+
+/* Ocultar la columna de la hora en la vista de agenda */
+.rbc-agenda-view .rbc-agenda-content .rbc-agenda-time-cell,
+.rbc-agenda-view .rbc-agenda-table th:nth-child(2),
+.rbc-agenda-view .rbc-agenda-table td:nth-child(2) {
+  display: none;
+}
+
+/* Expande la columna del evento para ocupar el espacio */
+.rbc-agenda-view .rbc-agenda-content .rbc-agenda-event-cell {
+  width: 100%;
+}
+
+/* Asegura que la columna del evento y su encabezado tengan el mismo ancho */
+.rbc-agenda-view .rbc-agenda-table th:first-child,
+.rbc-agenda-view .rbc-agenda-table td:first-child
+{
+  width: 10%;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  
+}
+
+.rbc-agenda-view .rbc-agenda-table th:last-child,
+.rbc-agenda-view .rbc-agenda-table td:last-child{
+  width: 90%;
+}
+
+/* Alineación central para el título del evento */
+.rbc-agenda-view .rbc-agenda-table th:first-child {
+  text-align: center;
+}
+
+.rbc-agenda-date-cell, .rbc-agenda-event-cell{
+  font-size: small;
+}
+
 
 
